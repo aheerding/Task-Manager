@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Task Manager</string>
+    <string name="action_settings">Settings</string>
+    <string name="add_Task_Title">New Task</string>
+    <string name="task_prompt">What do you need to do?</string>
+    <string name="edit_task_title">Enter your task</string>
+    <string name="date_prompt">When is it due?</string>
+    <string name="edit_date">Enter the due date</string>
+</resources>
