@@ -22,7 +22,8 @@
         <activity
             android:name=".AddNewTaskActivity"
             android:label="@string/add_Task_Title"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
     </application>
 
 </manifest>
