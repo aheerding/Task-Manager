@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.alex.taskmanager.AddNewTaskActivity"
+    >
+    <item
+        android:id="@+id/action_save"
+        android:title="@string/save_new_task"
+        app:showAsAction="withText|ifRoom"/>
+</menu>

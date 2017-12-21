@@ -5,8 +5,10 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.icu.util.Calendar;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -20,6 +22,11 @@ public class AddNewTaskActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_task);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.add_new_task_toolbar);
+        setSupportActionBar(toolbar);
+
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
         txtDate = (EditText) findViewById(R.id.in_date);
         txtDate.setShowSoftInputOnFocus(false);
 
@@ -58,5 +65,11 @@ public class AddNewTaskActivity extends AppCompatActivity{
     public void showTruitionDatePickerDialog(View v){
         DialogFragment dateFragment = new DatePickerFragment();
         dateFragment.show(getSupportFragmentManager(), "datePicker");
+    }
+
+    //Save the new task and return to the main activity
+    public void saveNewTask(View view){
+        //return to the main activity
+        finish();
     }
 }

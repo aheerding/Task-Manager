@@ -6,4 +6,5 @@
     <string name="edit_task_title">Enter your task</string>
     <string name="date_prompt">When is it due?</string>
     <string name="edit_date">Enter the due date</string>
+    <string name="save_new_task">Save</string>
 </resources>
