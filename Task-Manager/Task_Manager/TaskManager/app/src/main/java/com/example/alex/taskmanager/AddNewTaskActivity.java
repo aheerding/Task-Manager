@@ -16,6 +16,7 @@ import android.widget.EditText;
 public class AddNewTaskActivity extends AppCompatActivity{
 
     static EditText txtDate;
+    static EditText txtTask;
 
     @TargetApi(21)
     @Override
@@ -28,6 +29,7 @@ public class AddNewTaskActivity extends AppCompatActivity{
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
         txtDate = (EditText) findViewById(R.id.in_date);
+        txtTask = (EditText) findViewById(R.id.in_task);
         txtDate.setShowSoftInputOnFocus(false);
 
         txtDate.setOnClickListener(new View.OnClickListener() {
@@ -67,8 +69,17 @@ public class AddNewTaskActivity extends AppCompatActivity{
         dateFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
+    //write task object to a file
+
     //Save the new task and return to the main activity
     public void saveNewTask(View view){
+        //get the task title and the date as strings to be saved
+        String taskName = txtTask.getText().toString();
+        String taskDate = txtDate.getText().toString();
+
+        //create new task object
+        Task newTask = new Task(taskName, taskDate, false);
+
         //return to the main activity
         finish();
     }
