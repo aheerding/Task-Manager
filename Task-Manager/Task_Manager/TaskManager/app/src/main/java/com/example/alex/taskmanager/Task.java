@@ -1,11 +1,13 @@
 package com.example.alex.taskmanager;
 
+import java.io.Serializable;
+
 /**
  * Created by Alex on 12/24/2017.
  * com.example.alex.taskmanager.Task class to store data about created tasks
  */
 
-class Task {
+class Task  implements Serializable{
     //attributes
     private String taskName;
     private String taskDueDate;

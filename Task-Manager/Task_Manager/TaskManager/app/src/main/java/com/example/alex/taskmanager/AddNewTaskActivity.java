@@ -13,10 +13,27 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
+import java.io.EOFException;
+import java.io.File;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import android.util.Log;
+
 public class AddNewTaskActivity extends AppCompatActivity{
 
     static EditText txtDate;
     static EditText txtTask;
+    final String TASKFILENAME = "Tasks.dat";
+    final String TAG = "AddNewTaskActivity";
+
+
+    protected ArrayList<Task> tasks;
 
     @TargetApi(21)
     @Override
@@ -31,6 +48,11 @@ public class AddNewTaskActivity extends AppCompatActivity{
         txtDate = (EditText) findViewById(R.id.in_date);
         txtTask = (EditText) findViewById(R.id.in_task);
         txtDate.setShowSoftInputOnFocus(false);
+
+        //create new vector of tasks
+        tasks = new ArrayList<Task>();
+
+        //TODO: Check to see if there is already a saved Vector and assign to tasks
 
         txtDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,13 +94,54 @@ public class AddNewTaskActivity extends AppCompatActivity{
     //write task object to a file
 
     //Save the new task and return to the main activity
-    public void saveNewTask(View view){
+    public void addNewTask(View view){
         //get the task title and the date as strings to be saved
         String taskName = txtTask.getText().toString();
         String taskDate = txtDate.getText().toString();
 
         //create new task object
-        Task newTask = new Task(taskName, taskDate, false);
+        Task newTask = new Task(taskName, taskDate,false);
+        String path = getFilesDir() +"/"+ TASKFILENAME;
+        File saveFile = new File(path);
+
+        //check to see if the task file exists
+        try{
+            if(saveFile.createNewFile()){
+                //write object to file since file was just created and is empty
+                ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(path));
+                tasks.add(newTask);
+                out.writeObject(tasks);
+                out.flush();
+                out.close();
+            } else {
+                //if the file already exists open a stream and read from it
+                InputStream is = new FileInputStream(saveFile);
+                ObjectInputStream oin = new ObjectInputStream(is);
+                try{
+                    tasks = (ArrayList<Task>)oin.readObject();
+                } catch (EOFException e){
+                    e.printStackTrace();
+                }
+
+                oin.close();
+
+                tasks.add(newTask);
+
+                ObjectOutputStream out =  new ObjectOutputStream(new FileOutputStream(path));
+                out.writeObject(tasks);
+                out.flush();
+                out.close();
+
+                System.out.println(tasks.size());
+            }
+        } catch(IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            Log.e(TAG, e.toString());
+        }
+
+        for(Task t : tasks){
+            System.out.println(t.toString());
+        }
 
         //return to the main activity
         finish();
