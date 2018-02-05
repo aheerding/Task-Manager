@@ -132,7 +132,7 @@ public class AddNewTaskActivity extends AppCompatActivity{
                 out.flush();
                 out.close();
 
-                System.out.println(tasks.size());
+                //System.out.println(tasks.size());
             }
         } catch(IOException | ClassNotFoundException e) {
             e.printStackTrace();
